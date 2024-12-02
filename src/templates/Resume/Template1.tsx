@@ -140,7 +140,7 @@ function Template1({ setToggle, name, setName }: Template1Props) {
                       onChange={(e) =>
                         updateContent(expIndex, contentIndex, e.target.value)
                       }
-                      className="w-full"
+                      className="w-11/12"
                     />
                   </li>
                 </ul>
@@ -156,37 +156,57 @@ function Template1({ setToggle, name, setName }: Template1Props) {
             Add Work Experience
           </button>)}
         </section>
-
+        {/* Education Section */}
+        <section className="my-6">
+          <div className="border-b-2 border-indigo-500 ">
+            <h2 className={styles.header}>Education</h2>
+          </div>
+          <input
+            type="text"
+            placeholder="University Name"
+            className={styles.content_header}
+          />
+          <input
+            type="text"
+            placeholder="Degrees"
+            className={styles.content}
+          />
+        </section>
         <section className="my-4">
           <h2 className={`${styles.header} border-b-2 border-indigo-500`}>
             Skills
           </h2>
           {skillInputs.map((input, index) => (
-            <input
-              key={index}
-              type="text"
-              placeholder="Things you are good at (e.g., JavaScript)"
-              value={input}
-              onChange={(e) => updateSkill(index, e.target.value)}
-              className="w-full my-1"
-            />
+            <ul key={index} className={styles.list}>
+              <li>
+                <input
+                  key={index}
+                  type="text"
+                  placeholder="Things you are good at (e.g., JavaScript)"
+                  value={input}
+                  onChange={(e) => updateSkill(index, e.target.value)}
+                  className="w-11/12 my-1"
+                />
+            </li>
+            </ul>
           ))}
           {visible &&(
           <button
             type="button"
             onClick={addSkillInput}
-            className="w-full px-2 py-1 mt-2 bg-green-500 text-white rounded hover:bg-green-600"
+            className="w-full px-2 py-1 mt-2 mb-2 bg-green-500 text-white rounded hover:bg-green-600"
           >
             Add Skill
           </button>)}
         </section>
-      </form>
-      <button
+        {visible &&(
+        <button
         onClick={handleSubmit}
-        className="w-full px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600"
+        className="w-full px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 mb-4"
       >
         Download
-      </button>
+      </button>)}
+      </form>
     </div>
   );
 }
