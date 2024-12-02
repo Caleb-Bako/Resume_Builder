@@ -87,7 +87,7 @@ function Template1({setToggle,name,setName}:Template1Props) {
 
 
   return (
-    <div className="w-full sm:w-[470px] lg:w-[794px] h-[1123px] bg-white mx-auto border border-gray-300">
+    <div className="w-full sm:w-[470px] lg:w-[794px] h-[1123px] bg-white mx-auto lg:border lg:border-gray-300">
       <form onSubmit={handleSubmit} className={styles.container} ref={componentRef}>
         <div className="flex justify-end">
         <button onClick={()=>setToggle(0)} type="button">
