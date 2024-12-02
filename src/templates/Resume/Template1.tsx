@@ -11,7 +11,7 @@ interface Template1Props {
 }
 
 function Template1({setToggle,name,setName}:Template1Props) {
-  const [selectedStyle, setSelectedStyle] = useState("modern");
+  const [selectedStyle] = useState("modern");
   const [visible,setVisible] = useState(true);
   const [workExperiences, setWorkExperiences] = useState<
     { company: string; contents: string[] }[]
