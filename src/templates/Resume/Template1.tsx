@@ -10,9 +10,9 @@ interface Template1Props {
   setName :React.Dispatch<React.SetStateAction<string>>
 }
 
-function Template1({setToggle,name,setName}:Template1Props) {
+function Template1({ setToggle, name, setName }: Template1Props) {
   const [selectedStyle] = useState("modern");
-  const [visible,setVisible] = useState(true);
+  const [visible, setVisible] = useState(true);
   const [workExperiences, setWorkExperiences] = useState<
     { company: string; contents: string[] }[]
   >([]);
@@ -21,42 +21,32 @@ function Template1({setToggle,name,setName}:Template1Props) {
 
   const componentRef = useRef<HTMLFormElement>(null);
 
-  // Add a new work experience
   const addWorkExperience = () => {
     setWorkExperiences([...workExperiences, { company: "", contents: [] }]);
   };
 
-  // Update the company name of a specific work experience
   const updateCompany = (index: number, value: string) => {
     const updatedExperiences = [...workExperiences];
     updatedExperiences[index].company = value;
     setWorkExperiences(updatedExperiences);
   };
 
-  // Add a content item to a specific work experience
   const addContent = (index: number) => {
     const updatedExperiences = [...workExperiences];
     updatedExperiences[index].contents.push("");
     setWorkExperiences(updatedExperiences);
   };
 
-  // Update a specific content item for a work experience
-  const updateContent = (
-    expIndex: number,
-    contentIndex: number,
-    value: string
-  ) => {
+  const updateContent = (expIndex: number, contentIndex: number, value: string) => {
     const updatedExperiences = [...workExperiences];
     updatedExperiences[expIndex].contents[contentIndex] = value;
     setWorkExperiences(updatedExperiences);
   };
 
-  // Add new skill input
   const addSkillInput = () => {
     setSkillInputs([...skillInputs, ""]);
   };
 
-  // Update skill input
   const updateSkill = (index: number, value: string) => {
     const updatedSkills = [...skillInputs];
     updatedSkills[index] = value;
@@ -68,15 +58,15 @@ function Template1({setToggle,name,setName}:Template1Props) {
     setVisible(false);
   };
 
-  useEffect(()=>{
-    if(!visible){
+  useEffect(() => {
+    if (!visible) {
       reactToPrintFn();
     }
-  },[visible])
+  }, [visible]);
 
-  const handleVisibleChange = () =>{
+  const handleVisibleChange = () => {
     setVisible(true);
-  }
+  };
 
   const reactToPrintFn = useReactToPrint({
     contentRef: componentRef,
@@ -84,148 +74,115 @@ function Template1({setToggle,name,setName}:Template1Props) {
     onAfterPrint: handleVisibleChange,
   });
 
-
-
   return (
-    <div className="w-full sm:w-[470px] lg:w-[794px] h-[1123px] bg-white mx-auto lg:border lg:border-gray-300">
-      <form onSubmit={handleSubmit} className={styles.container} ref={componentRef}>
+    <div className="w-full h-screen bg-white mx-auto p-4 sm:p-6 md:p-8 lg:border lg:border-gray-300 overflow-y-auto">
+      <form
+        onSubmit={handleSubmit}
+        className={`${styles.container} flex flex-col h-full`}
+        ref={componentRef}
+      >
         <div className="flex justify-end">
-        <button onClick={()=>setToggle(0)} type="button">
-          <img
-            src={closeIcon}
-            alt="Resume Icon"
-            className="w-12 h-12 mb-2"
-          />
-        </button>
+          <button onClick={() => setToggle(0)} type="button">
+            <img src={closeIcon} alt="Close" className="w-6 h-6" />
+          </button>
         </div>
-        <header className="text-center my-6">
-          <div className="border-b-2 border-indigo-500 pb-3">
-            <input
-              type="text"
-              placeholder="Enter your name"
-              value={name}
-              onChange={ev => setName(ev.target.value)}
-              className={styles.name}
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Enter social handle"
-              className={styles.social}
-            />
-          </div>
-          <div className="border-b-2 border-indigo-500 pb-3">
-            <input
-              type="email"
-              placeholder="Enter email"
-              className={styles.social}
-            />
-          </div>
+        <header className="text-center my-4">
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className={`${styles.name} w-full`}
+          />
+          <input
+            type="text"
+            placeholder="Enter social handle"
+            className={`${styles.social} w-full`}
+          />
+          <input
+            type="email"
+            placeholder="Enter email"
+            className={`${styles.social} w-full`}
+          />
         </header>
 
-        {/* Work Experience Section */}
-        <div>
-          <div className="flex justify-between border-b-2 border-indigo-500 ">
-            <h2 className={styles.header}>Work Experience</h2>
-            {visible &&(
-              <button
-                type="button"
-                onClick={addWorkExperience}
-                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 mb-0.5"
-              >
-                +
-            </button>
-            )}
-          </div>
+        <section>
+          <h2 className={`${styles.header} border-b-2 border-indigo-500`}>
+            Work Experience
+          </h2>
           {workExperiences.map((exp, expIndex) => (
-            <div key={expIndex}>
-              {/* Company Name Input */}
-              <div className={styles.content_header}>
+            <div key={expIndex} className="my-2">
+              <div className={`${styles.content_header}`}>
                 <input
                   type="text"
-                  placeholder="e.g Star Labs"
+                  placeholder="e.g., Star Labs"
                   value={exp.company}
                   onChange={(e) => updateCompany(expIndex, e.target.value)}
+                  className="w-full"
                 />
-                {visible &&(
-                  <button
-                    type="button"
-                    onClick={() => addContent(expIndex)}
-                    className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 mt-0.5"
-                  >
-                    +
-                  </button>
-                )}
+                <button
+                  type="button"
+                  onClick={() => addContent(expIndex)}
+                  className="ml-2 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                  +
+                </button>
               </div>
-
-              {/* Content Inputs */}
               {exp.contents.map((content, contentIndex) => (
-                <ul className={styles.list} key={contentIndex}>
+                <ul key={contentIndex} className={styles.list}>
                   <li>
                     <input
                       type="text"
-                      placeholder="e.g Helped in keeping Central City Safe"
-                      className={styles.content}
+                      placeholder="e.g., Helped in keeping Central City Safe"
                       value={content}
                       onChange={(e) =>
                         updateContent(expIndex, contentIndex, e.target.value)
                       }
+                      className="w-full"
                     />
                   </li>
                 </ul>
               ))}
             </div>
           ))}
-        </div>
+          <button
+            type="button"
+            onClick={addWorkExperience}
+            className="w-full px-2 py-1 mt-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Add Work Experience
+          </button>
+        </section>
 
-        {/* Education Section */}
-        <div className="my-6">
-          <div className="border-b-2 border-indigo-500 ">
-            <h2 className={styles.header}>Education</h2>
-          </div>
-          <input
-            type="text"
-            placeholder="University Name"
-            className={styles.content_header}
-          />
-          <input
-            type="text"
-            placeholder="Degrees"
-            className={styles.content}
-          />
-        </div>
-
-        {/* Skills Section */}
-        <div className="my-6">
-          <div className="flex justify-between border-b-2 border-indigo-500">
-            <h2 className={styles.header}>Skills</h2>
-            {visible &&(
-              <button
-                type="button"
-                onClick={addSkillInput}
-                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 mb-0.5"
-              >
-                +
-              </button>
-            )}
-          </div>
+        <section className="my-4">
+          <h2 className={`${styles.header} border-b-2 border-indigo-500`}>
+            Skills
+          </h2>
           {skillInputs.map((input, index) => (
-            <ul className={styles.list} key={index}>
-              <li>
-                <input
-                  type="text"
-                  placeholder="Things you are good at e.g JavaScript"
-                  className={styles.content}
-                  value={input}
-                  onChange={(e) => updateSkill(index, e.target.value)}
-                />
-              </li>
-            </ul>
+            <input
+              key={index}
+              type="text"
+              placeholder="Things you are good at (e.g., JavaScript)"
+              value={input}
+              onChange={(e) => updateSkill(index, e.target.value)}
+              className="w-full my-1"
+            />
           ))}
-        </div>
+          <button
+            type="button"
+            onClick={addSkillInput}
+            className="w-full px-2 py-1 mt-2 bg-green-500 text-white rounded hover:bg-green-600"
+          >
+            Add Skill
+          </button>
+        </section>
       </form>
-      <button onClick={handleSubmit}>Download</button>
+      <button
+        onClick={handleSubmit}
+        className="w-full px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600"
+      >
+        Download
+      </button>
     </div>
   );
 }
