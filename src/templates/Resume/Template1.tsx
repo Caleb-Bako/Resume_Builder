@@ -81,11 +81,12 @@ function Template1({ setToggle, name, setName }: Template1Props) {
         className={`${styles.container} flex flex-col h-full`}
         ref={componentRef}
       >
+        {visible &&(
         <div className="flex justify-end">
           <button onClick={() => setToggle(0)} type="button">
             <img src={closeIcon} alt="Close" className="w-6 h-6" />
           </button>
-        </div>
+        </div>)}
         <header className="text-center my-4">
           <input
             type="text"
@@ -120,13 +121,14 @@ function Template1({ setToggle, name, setName }: Template1Props) {
                   onChange={(e) => updateCompany(expIndex, e.target.value)}
                   className="w-full"
                 />
+                {visible &&(
                 <button
                   type="button"
                   onClick={() => addContent(expIndex)}
                   className="ml-2 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
                 >
                   +
-                </button>
+                </button>)}
               </div>
               {exp.contents.map((content, contentIndex) => (
                 <ul key={contentIndex} className={styles.list}>
@@ -145,13 +147,14 @@ function Template1({ setToggle, name, setName }: Template1Props) {
               ))}
             </div>
           ))}
+          {visible &&(
           <button
             type="button"
             onClick={addWorkExperience}
             className="w-full px-2 py-1 mt-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
             Add Work Experience
-          </button>
+          </button>)}
         </section>
 
         <section className="my-4">
@@ -168,13 +171,14 @@ function Template1({ setToggle, name, setName }: Template1Props) {
               className="w-full my-1"
             />
           ))}
+          {visible &&(
           <button
             type="button"
             onClick={addSkillInput}
             className="w-full px-2 py-1 mt-2 bg-green-500 text-white rounded hover:bg-green-600"
           >
             Add Skill
-          </button>
+          </button>)}
         </section>
       </form>
       <button
