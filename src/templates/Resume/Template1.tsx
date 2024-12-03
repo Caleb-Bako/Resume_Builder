@@ -83,7 +83,7 @@ function Template1({ setToggle, name, setName }: Template1Props) {
     <div className="w-full h-screen bg-white mx-auto p-4 sm:p-6 md:p-8 lg:border lg:border-gray-300 overflow-y-auto">
       <form
         onSubmit={handleSubmit}
-        className={`${styles.container} flex flex-col h-full`}
+        className={`${styles.container} flex flex-col h-screen`}
         ref={componentRef}
       >
         {visible &&(
