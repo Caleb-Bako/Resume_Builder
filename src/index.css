@@ -28,6 +28,17 @@ body {
   .print:block {
     display: block !important;
   }
+  * {
+    box-sizing: border-box;
+  }
+  html, body {
+    height: auto;
+    overflow: hidden;
+  }
+
+  form {
+    page-break-inside: avoid;
+  }
 }
 /* button {
   border-radius: 8px;
