@@ -17,7 +17,7 @@ interface FormStyle {
   // Define the styles
   const formStyles: FormStyles = {
     modern: {
-      container: "sm:p-[10px] lg:p-[96px]",
+      container: "sm:p-[10px] lg:p-[96px] break-after-avoid",
       header:"text-2xl font-bold ",
       list:"list-disc list-inside text-sm text-gray-700 mt-2 space-y-2  w-full",
       name:"text-3xl font-bold text-center w-full",
