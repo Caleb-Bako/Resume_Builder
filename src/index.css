@@ -20,7 +20,15 @@ body {
   margin: 0;
   padding: 0;
 }
+@media print {
+  .print:hidden {
+    display: none !important;
+  }
 
+  .print:block {
+    display: block !important;
+  }
+}
 /* button {
   border-radius: 8px;
   border: 1px solid transparent;

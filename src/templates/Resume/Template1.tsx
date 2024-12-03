@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import formStyles from "../TemplateStyles";
 import { useReactToPrint } from "react-to-print";
 import closeIcon from '../../assets/close-x-svgrepo-com.svg';
@@ -56,13 +56,18 @@ function Template1({ setToggle, name, setName }: Template1Props) {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     setVisible(false);
-  };
-
-  useEffect(() => {
-    if (!visible) {
+  
+    setTimeout(() => {
       reactToPrintFn();
-    }
-  }, [visible]);
+    }, 100);
+  };
+  
+
+  // useEffect(() => {
+  //   if (!visible) {
+  //     reactToPrintFn();
+  //   }
+  // }, [visible]);
 
   const handleVisibleChange = () => {
     setVisible(true);
@@ -83,7 +88,7 @@ function Template1({ setToggle, name, setName }: Template1Props) {
       >
         {visible &&(
         <div className="flex justify-end">
-          <button onClick={() => setToggle(0)} type="button">
+          <button onClick={() => setToggle(0)} type="button" className="print:hidden">
             <img src={closeIcon} alt="Close" className="w-6 h-6" />
           </button>
         </div>)}
@@ -125,7 +130,7 @@ function Template1({ setToggle, name, setName }: Template1Props) {
                 <button
                   type="button"
                   onClick={() => addContent(expIndex)}
-                  className="ml-2 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  className="ml-2 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 print:hidden"
                 >
                   +
                 </button>)}
@@ -151,7 +156,7 @@ function Template1({ setToggle, name, setName }: Template1Props) {
           <button
             type="button"
             onClick={addWorkExperience}
-            className="w-full px-2 py-1 mt-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="w-full px-2 py-1 mt-2 bg-blue-500 text-white rounded hover:bg-blue-600 print:hidden"
           >
             Add Work Experience
           </button>)}
@@ -194,7 +199,7 @@ function Template1({ setToggle, name, setName }: Template1Props) {
           <button
             type="button"
             onClick={addSkillInput}
-            className="w-full px-2 py-1 mt-2 mb-2 bg-green-500 text-white rounded hover:bg-green-600"
+            className="w-full px-2 py-1 mt-2 mb-2 bg-green-500 text-white rounded hover:bg-green-600 print:hidden"
           >
             Add Skill
           </button>)}
@@ -202,7 +207,7 @@ function Template1({ setToggle, name, setName }: Template1Props) {
         {visible &&(
         <button
         onClick={handleSubmit}
-        className="w-full px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 mb-4"
+        className="w-full px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 mb-4 print:hidden"
       >
         Download
       </button>)}
