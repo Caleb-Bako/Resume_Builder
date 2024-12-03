@@ -207,7 +207,7 @@ function Template1({ setToggle, name, setName }: Template1Props) {
         {visible &&(
         <button
         onClick={handleSubmit}
-        className="w-full px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 mb-4 print:hidden"
+        className="w-full px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 print:hidden"
       >
         Download
       </button>)}
