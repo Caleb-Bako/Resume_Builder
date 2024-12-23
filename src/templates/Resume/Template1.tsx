@@ -1,17 +1,20 @@
 import { useRef, useState } from "react";
-import formStyles from "../TemplateStyles";
+import formStyles from "./Resume_Templates";
 import { useReactToPrint } from "react-to-print";
 import closeIcon from '../../assets/close-x-svgrepo-com.svg';
 import React from 'react';
+import PopUp from "../../components/Popup";
 
 interface Template1Props {
   setToggle: React.Dispatch<React.SetStateAction<number>>;
+  toggle: number,
   name: string,
   setName :React.Dispatch<React.SetStateAction<string>>
+  selectedStyle: string,
+  setSelectedStyle :React.Dispatch<React.SetStateAction<string>>
 }
 
-function Template1({ setToggle, name, setName }: Template1Props) {
-  const [selectedStyle] = useState("modern");
+function Template1({ setToggle, name, setName,selectedStyle,setSelectedStyle,toggle }: Template1Props) {
   const [visible, setVisible] = useState(true);
   const [workExperiences, setWorkExperiences] = useState<
     { company: string; contents: string[] }[]
@@ -63,12 +66,6 @@ function Template1({ setToggle, name, setName }: Template1Props) {
   };
   
 
-  // useEffect(() => {
-  //   if (!visible) {
-  //     reactToPrintFn();
-  //   }
-  // }, [visible]);
-
   const handleVisibleChange = () => {
     setVisible(true);
   };
@@ -78,6 +75,10 @@ function Template1({ setToggle, name, setName }: Template1Props) {
     documentTitle: "AwesomeFileName",
     onAfterPrint: handleVisibleChange,
   });
+
+  if (selectedStyle === '') return(
+    <PopUp selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} toggle={toggle}/>
+  )
 
   return (
     <div className="w-full bg-white mx-auto p-4 sm:p-6 md:p-8 lg:border lg:border-gray-300 overflow-y-auto break-inside-avoid">

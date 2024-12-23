@@ -1,12 +1,15 @@
 import { SetStateAction, useState } from 'react';
 import newspaperIcon from './assets/newspaper.png';
 import Template1 from './templates/Resume/Template1';
+import ModernDesign from './templates/CV/Elegant';
 
 function LandingPage(){
     const [toggle, setToggle] =useState<number>(0);
     const[name,setName] = useState('')
+    const [selectedStyle,setSelectedStyle] = useState("");
     function updateToggle(id: SetStateAction<number>){
-        setToggle(id)
+      setSelectedStyle("")
+      setToggle(id)
     }
 
     return (
@@ -115,8 +118,11 @@ function LandingPage(){
           </footer>
         </div>
         )}
+        {toggle === 1 &&(
+          <ModernDesign setToggle={setToggle} toggle={toggle}  selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} />
+        )}
         {toggle === 2 &&(
-            <Template1 setToggle={setToggle} name={name} setName={setName}/> 
+            <Template1 setToggle={setToggle} toggle={toggle} name={name} setName={setName} selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} /> 
         )}
         </>
       );
