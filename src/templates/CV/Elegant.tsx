@@ -2,6 +2,7 @@ import React, {useRef, useState } from "react";
 import cvFormStyles from "./CV_Templates";
 import { useReactToPrint } from "react-to-print";
 import closeIcon from '../../assets/close-x-svgrepo-com.svg';
+import trashIcon from '../../assets/trash-bin.svg';
 import PopUp from "../../components/Popup";
 
 interface CVProps {
@@ -84,11 +85,28 @@ function ModernDesign({ setToggle,selectedStyle,setSelectedStyle,toggle }: CVPro
 
   }
 
-  const deleteSocialLink = (index: number) => {
-    const updatedLinks = socialLinks.filter((_, i) => i !== index);
-    console.log("Updated Social Links:", updatedLinks); // Logs the new array without the deleted item
-    setSocialLinks(updatedLinks);
-  };
+
+  const handleSelection = (index: number, type: string) => {
+    switch (type) {
+      case 'socialLinks':
+        const updatedLinks = socialLinks.filter((_, i) => i !== index);
+        console.log("Updated Social Links:", updatedLinks); // Logs the new array without the deleted item
+        setSocialLinks(updatedLinks);
+        break;
+      case 'skills':
+        const updatedSkills = skillInputs.filter((_, i) => i !== index);
+        console.log("Updated Social Links:", updatedSkills); // Logs the new array without the deleted item
+        setSkillInputs(updatedSkills);
+        break;
+      case 'exp':
+          const updatedExp = workExperiences.filter((_, i) => i !== index);
+          console.log("Updated:", updatedExp); // Logs the new array without the deleted item
+          setWorkExperiences(updatedExp);
+          break;
+      default:
+        console.log('Unknown Type');
+    }
+  }
   
   
 
@@ -144,7 +162,7 @@ function ModernDesign({ setToggle,selectedStyle,setSelectedStyle,toggle }: CVPro
         <section>
           <h2 className={`${styles.header} border-b-2 ${styles.border_color_2}`}>CONTACT</h2>
           {socialLinks.map((social, socialIndex) => (
-            <div key={socialIndex}>
+            <div key={socialIndex} className="flex gap-1">
               <input
                 type="text"
                 placeholder="Social Links"
@@ -152,12 +170,12 @@ function ModernDesign({ setToggle,selectedStyle,setSelectedStyle,toggle }: CVPro
                 onChange={(e) => updateSocials(socialIndex, e.target.value)}
                 className={`${styles.social} w-full`}
               />
-              <button
+            <button
               type="button"
-              onClick={()=>deleteSocialLink(socialIndex)}
-              className="w-full px-2 py-1 mt-2 mb-2 bg-green-500 text-white rounded hover:bg-green-600 print:hidden"
+              onClick={()=>handleSelection(socialIndex,'socialLinks')}
+              className="w-fit px-2 py-1 mt-2 mb-2 rounded print:hidden"
             >
-              Delete
+             <img src={trashIcon} alt="Delete" className="w-6 h-6" />
             </button>  
           </div>
           ))}
@@ -199,13 +217,23 @@ function ModernDesign({ setToggle,selectedStyle,setSelectedStyle,toggle }: CVPro
                   className="w-full"
                 />
                 {visible &&(
+                <div className="flex gap-1">
                 <button
                   type="button"
                   onClick={() => addContent(expIndex)}
                   className="ml-2 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 print:hidden"
                 >
                   +
-                </button>)}
+                </button>
+                <button
+                  type="button"
+                  onClick={()=>handleSelection(expIndex,'exp')}
+                  className="w-fit px-2 py-1 mt-2 mb-2 rounded print:hidden"
+                  >
+                    <img src={trashIcon} alt="Delete" className="w-6 h-6" />
+                  </button> 
+                  </div>
+              )}
               </div>
               {exp.contents.map((content, contentIndex) => (
                 <ul key={contentIndex} className={styles.list}>
@@ -252,7 +280,7 @@ function ModernDesign({ setToggle,selectedStyle,setSelectedStyle,toggle }: CVPro
       <h2 className={`${styles.header} border-b-2 ${styles.border_color_2}`}>Skills</h2>
       {skillInputs.map((input, index) => (
             <ul key={index} className={styles.list}>
-              <li>
+              <li className="items-center justify-items-center"> 
                 <input
                   key={index}
                   type="text"
@@ -261,6 +289,14 @@ function ModernDesign({ setToggle,selectedStyle,setSelectedStyle,toggle }: CVPro
                   onChange={(e) => updateSkill(index, e.target.value)}
                   className="w-11/12 my-1 text-xs"
                 />
+              {visible &&(
+              <button
+                type="button"
+                onClick={()=>handleSelection(index,'skills')}
+                className="w-fit px-2 py-1 mt-2 mb-2 rounded print:hidden"
+              >
+              <img src={trashIcon} alt="Delete" className="w-6 h-6" />
+              </button> )}
             </li>
             </ul>
             ))}

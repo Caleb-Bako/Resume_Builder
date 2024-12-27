@@ -36,7 +36,7 @@ interface FormStyle {
       input:"bg-orange-500",
       header: "text-base font-bold text-gray-800 mt-6",
       content_header: "text-sm font-semibold text-gray-700 mt-4 mx-4",
-      content: "text-xs text-gray-600 leading-6 mx-4",
+      content: "text-xs text-gray-600 leading-6 mx-4 ",
       list: "list-disc list-inside text-xs text-gray-700 mt-2 mx-4 space-y-2",
       summary: "text-xs text-gray-600 mt-4",
       skills: "grid grid-cols-2 gap-4 mt-4 text-xs text-gray-700"
