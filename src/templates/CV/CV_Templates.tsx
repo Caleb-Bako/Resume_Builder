@@ -26,7 +26,7 @@ interface FormStyle {
   const cvFormStyles: FormStyles = {
     modern: {
       container: "sm:p-4 lg:p-8 bg-white",
-      structure:"flex flex-row justify-between h-screen",
+      structure:"flex flex-row justify-between h-screen break-inside-avoid",
       color:"bg-orange-500",
       section:"bg-orange-500 w-2/4 mr-1.5",
       border_color:"border-orange-500",
