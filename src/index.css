@@ -21,8 +21,11 @@ body {
   padding: 0;
 }
 @media print {
+  
   .print:hidden {
     display: none !important;
+    -webkit-print-color-adjust: exact; /* Ensures proper color rendering in WebKit browsers */
+    print-color-adjust: exact;
   }
 
   .print:block {
