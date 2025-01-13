@@ -89,7 +89,7 @@ interface TemplateProps {
     }, [toggle, thumbnails.length, arrayLength, generateThumbnail]);
     
     return (
-        <div className={`fixed inset-0 -z-50 ${close === 1 ? "block" : "hidden"}`}>
+        <div className={`fixed inset-0 -z-50 ${close === 1 || close === 2 ? "block" : "hidden"}`}>
             <div className="w-full">
                 <div>
                     {formType === 'CV' && (
