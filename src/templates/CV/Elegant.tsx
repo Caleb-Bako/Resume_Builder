@@ -1,4 +1,4 @@
-import { forwardRef, useRef } from "react";
+import { forwardRef,} from "react";
 import cvFormStyles from "./CV_Templates";
 
 interface WorkExperience {
@@ -39,11 +39,10 @@ const CVForm = forwardRef<HTMLDivElement, CVProps>(
     ref 
   ) => {
     const styles = cvFormStyles[selectedStyle];
-    const componentRef = useRef<HTMLDivElement>(null);
 
     return (
       <div className={styles.container} ref={ref}>
-        <div ref={componentRef} className={styles.structure}>
+        <div className={styles.structure}>
           <section className={styles.section}>
             <div
               className={`${styles.name} w-full px-4 overflow-hidden resize-none ${styles.color}`}

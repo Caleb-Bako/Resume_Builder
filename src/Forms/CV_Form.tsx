@@ -64,15 +64,7 @@ function updateToggle(id: SetStateAction<number>){
 
   const reactToPrintFn = useReactToPrint({
     contentRef: componentref,
-    onBeforePrint: async () => {
-        setClose(2); // Your synchronous logic
-        return; // Implicitly returns Promise<void>
-    },
-    documentTitle: "AwesomeFileName",   
-    onAfterPrint: async () => {
-        setClose(1); // Your synchronous logic
-        return; // Implicitly returns Promise<void>
-    }   
+    documentTitle: "AwesomeFileName",     
   });
 
   const refreshThumbnail = () => {
@@ -81,7 +73,7 @@ function updateToggle(id: SetStateAction<number>){
   }
   
     return(
-        <div className="min-h-screen p-6 bg-gradient-to-r from-blue-500 to-green-500 font-sans relative">
+        <div className="min-h-screen p-6 bg-gradient-to-r from-blue-500 to-green-500 font-sans relative print:hidden">
          {close === 0 &&(
         <form onSubmit={handleSubmit} className="p-6 bg-white rounded-lg shadow-lg h-fit">
             <button onClick={()=>closeForm(0)} className='absolute top-8 right-8'>
@@ -308,7 +300,7 @@ function updateToggle(id: SetStateAction<number>){
             </div>
         )}
         {close === 1 &&(
-            <div>
+            <div className='print:hidden'>
             <button onClick={() => refreshThumbnail()} type="button">
                 <img src={closeIcon} className="w-6 h-6"/>
             </button>
@@ -330,9 +322,6 @@ function updateToggle(id: SetStateAction<number>){
                 ))}
                 </div>
             </div>
-        )}
-        {close === 2 &&(
-            <h2>Helllllooooooo</h2>
         )}
         </div>
     )
