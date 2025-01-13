@@ -73,7 +73,8 @@ function updateToggle(id: SetStateAction<number>){
   }
   
     return(
-        <div className="min-h-screen p-6 bg-gradient-to-r from-blue-500 to-green-500 font-sans relative ">
+    <div>
+        <div className="min-h-screen p-6 bg-gradient-to-r from-blue-500 to-green-500 font-sans relative print:hidden">
          {close === 0 &&(
         <form onSubmit={handleSubmit} className="p-6 bg-white rounded-lg shadow-lg h-fit">
             <button onClick={()=>closeForm(0)} className='absolute top-8 right-8'>
@@ -282,24 +283,6 @@ function updateToggle(id: SetStateAction<number>){
             </button>
         </form>)}
         {close === 1 &&(
-            <div className='absolute -z-10' ref={componentref}>
-                <SelectTemplate
-                ref={ref}
-                toggle={toggle}
-                setToggle={setToggle} 
-                thumbnails={thumbnails}
-                close={close}
-                setThumbnails={setThumbnails}
-                formType={formType}
-                name={name} 
-                summary={summary} 
-                skillInputs={skillInputs} 
-                education= {education} 
-                socialLinks={socialLinks} 
-                workExperiences={workExperiences} />
-            </div>
-        )}
-        {close === 1 &&(
             <div className='print:hidden'>
             <button onClick={() => refreshThumbnail()} type="button">
                 <img src={closeIcon} className="w-6 h-6"/>
@@ -321,6 +304,25 @@ function updateToggle(id: SetStateAction<number>){
                     </div>
                 ))}
                 </div>
+            </div>
+        )}
+        </div>
+        {close === 1 &&(
+            <div className='absolute -z-10' ref={componentref}>
+                <SelectTemplate
+                ref={ref}
+                toggle={toggle}
+                setToggle={setToggle} 
+                thumbnails={thumbnails}
+                close={close}
+                setThumbnails={setThumbnails}
+                formType={formType}
+                name={name} 
+                summary={summary} 
+                skillInputs={skillInputs} 
+                education= {education} 
+                socialLinks={socialLinks} 
+                workExperiences={workExperiences} />
             </div>
         )}
         </div>
