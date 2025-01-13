@@ -1,4 +1,4 @@
-import { forwardRef, useRef} from "react";
+import { forwardRef} from "react";
 import formStyles from "./Resume_Templates";
 
 interface WorkExperience {
@@ -39,14 +39,12 @@ const  ResumeForm = forwardRef<HTMLDivElement, ResumeProps>(
     ref 
   ) => {
   const styles = formStyles[selectedStyle];
-  const componentRef = useRef<HTMLDivElement>(null);
 
 
   return (
     <div className={styles.container} ref={ref} >
       <div
         className={`flex flex-col break-inside-avoid w-full`}
-        ref={componentRef}
       >
         <header className="text-center my-4 w-full">
           <div  className={`${styles.name} w-full`}>{name}</div>

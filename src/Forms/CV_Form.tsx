@@ -10,6 +10,7 @@ export default function CV_Form({closeForm}:Toggle){
 const [close, setClose] =useState<number>(0);
 const formType = "CV"
 const ref = useRef<HTMLDivElement>(null);
+const componentref = useRef<HTMLDivElement>(null);
 const [thumbnails, setThumbnails] = useState<string[]>([]);
 const[name,setName] = useState('')
 const[toggle,setToggle] = useState(0)
@@ -62,7 +63,7 @@ function updateToggle(id: SetStateAction<number>){
   };
 
   const reactToPrintFn = useReactToPrint({
-    contentRef: ref,
+    contentRef: componentref,
     documentTitle: "AwesomeFileName",
   });
 
@@ -281,7 +282,7 @@ function updateToggle(id: SetStateAction<number>){
             </button>
         </form>)}
         {close === 1 &&(
-            <div className='absolute -z-10'>
+            <div className='absolute -z-10' ref={componentref}>
                 <SelectTemplate
                 ref={ref}
                 toggle={toggle}
