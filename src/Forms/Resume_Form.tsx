@@ -81,7 +81,7 @@ function updateToggle(id: SetStateAction<number>){
                 <img src={closeIcon} className="w-6 h-6"/>
             </button>
             <div className="flex flex-col border-b-2 mb-4">
-                <label>Name:</label>
+                <label className='font-semibold'>Name:</label>
                 <input
                     placeholder="Input Name"
                     className=""
@@ -91,7 +91,7 @@ function updateToggle(id: SetStateAction<number>){
             </div>
             <div className="flex flex-col border-b-2 mb-4">
                 <div>
-                <label>Socials:</label>
+                <label className='font-semibold'>Socials:</label>
                 <button
                 onClick={()=> addSocialLink({setSocialLinks,socialLinks})}
                 className='ml-2 px-2 py-1 rounded-lg shadow-lg text-blue-500 rounded hover:bg-blue-100'
@@ -118,7 +118,7 @@ function updateToggle(id: SetStateAction<number>){
                 </div>))}
             </div>
             <div className="flex flex-col border-b-2 mb-4">
-                <label>Summary:</label>
+                <label className='font-semibold'>Summary:</label>
             <textarea
                 value={summary}
                 onChange={(e)=>setSummary(e.target.value)}
@@ -129,7 +129,7 @@ function updateToggle(id: SetStateAction<number>){
             </div>
             <div className="flex flex-col border-b-2 mb-4">
                 <div className='flex items-center justify-between sm:justify-start mb-2'>
-                    <label>Professional Experience:</label>
+                    <label className='font-semibold'>Professional Experience:</label>
                     <button
                      onClick={() => addWorkExperience({setWorkExperiences,workExperiences})}
                     className='ml-2 px-2 py-1 rounded-lg shadow-lg text-blue-500 rounded hover:bg-blue-100'
@@ -187,7 +187,7 @@ function updateToggle(id: SetStateAction<number>){
             </div>
             <div className="flex flex-col border-b-2 mb-4">
                 <div className='flex mb-2 items-center'>
-                    <label>Education:</label>
+                    <label className='font-semibold'>Education:</label>
                     <button
                         onClick={() => addEducation({setEducation,education})}
                         className='ml-2 px-2 py-1 rounded-lg shadow-lg text-blue-500 rounded hover:bg-blue-100'
@@ -249,7 +249,7 @@ function updateToggle(id: SetStateAction<number>){
            
             <div className="flex flex-col border-b-2 mb-4">
                 <div>
-                    <label>Skills:</label>
+                    <label className='font-semibold'>Skills:</label>
                     <button
                      onClick={()=> addSkillInput({setSkillInputs,skillInputs})}
                     className='ml-2 px-2 py-1 rounded-lg shadow-lg text-blue-500 rounded hover:bg-blue-100'
