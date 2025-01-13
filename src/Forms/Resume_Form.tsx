@@ -6,11 +6,11 @@ import SelectTemplate from '../templates/SelectTemplate';
 import { useReactToPrint } from 'react-to-print';
 
 interface Toggle {closeForm:React.Dispatch<React.SetStateAction<number>>}
-
 export default function Resume_Form({closeForm}:Toggle){
 const [close, setClose] =useState<number>(0);
-const formType = "Resume"
+const formType = "CV"
 const ref = useRef<HTMLDivElement>(null);
+const componentref = useRef<HTMLDivElement>(null);
 const [thumbnails, setThumbnails] = useState<string[]>([]);
 const[name,setName] = useState('')
 const[toggle,setToggle] = useState(0)
@@ -63,8 +63,8 @@ function updateToggle(id: SetStateAction<number>){
   };
 
   const reactToPrintFn = useReactToPrint({
-    contentRef: ref,
-    documentTitle: "AwesomeFileName",
+    contentRef: componentref,
+    documentTitle: "AwesomeFileName",     
   });
 
   const refreshThumbnail = () => {
@@ -73,7 +73,8 @@ function updateToggle(id: SetStateAction<number>){
   }
   
     return(
-        <div className="min-h-screen p-6 bg-gradient-to-r from-blue-500 to-green-500 font-sans relative">
+    <div>
+        <div className="min-h-screen p-6 bg-gradient-to-r from-blue-500 to-green-500 font-sans relative print:hidden">
          {close === 0 &&(
         <form onSubmit={handleSubmit} className="p-6 bg-white rounded-lg shadow-lg h-fit">
             <button onClick={()=>closeForm(0)} className='absolute top-8 right-8'>
@@ -282,31 +283,13 @@ function updateToggle(id: SetStateAction<number>){
             </button>
         </form>)}
         {close === 1 &&(
-            <div className='absolute -z-10'>
-                <SelectTemplate
-                ref={ref}
-                toggle={toggle}
-                setToggle={setToggle} 
-                thumbnails={thumbnails}
-                close={close}
-                setThumbnails={setThumbnails}
-                formType={formType}
-                name={name} 
-                summary={summary} 
-                skillInputs={skillInputs} 
-                education= {education} 
-                socialLinks={socialLinks} 
-                workExperiences={workExperiences} />
-            </div>
-        )}
-        {close === 1 &&(
-            <div>
+            <div className='print:hidden'>
             <button onClick={() => refreshThumbnail()} type="button">
                 <img src={closeIcon} className="w-6 h-6"/>
             </button>
             <div className='flex  items-center justify-center flex-wrap'>
                 {thumbnails.map((thumbnail,index)=>(
-                    <div className={`${toggle === index ?'rounded-lg shadow-lg':''}`} key={index}>
+                    <div className={`${toggle === index ?'rounded-lg shadow-lg':''}`}>
                             <div className='relative'>
                                 <img src={thumbnail} className="w-56 h-72 flex justify-between my-2" onClick={()=>setToggle(index)}/>
                                 {toggle === index &&(
@@ -321,6 +304,25 @@ function updateToggle(id: SetStateAction<number>){
                     </div>
                 ))}
                 </div>
+            </div>
+        )}
+        </div>
+        {close === 1 &&(
+            <div className='absolute -z-10' ref={componentref}>
+                <SelectTemplate
+                ref={ref}
+                toggle={toggle}
+                setToggle={setToggle} 
+                thumbnails={thumbnails}
+                close={close}
+                setThumbnails={setThumbnails}
+                formType={formType}
+                name={name} 
+                summary={summary} 
+                skillInputs={skillInputs} 
+                education= {education} 
+                socialLinks={socialLinks} 
+                workExperiences={workExperiences} />
             </div>
         )}
         </div>
