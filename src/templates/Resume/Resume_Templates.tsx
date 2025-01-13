@@ -6,7 +6,11 @@ interface FormStyle {
     social: string;
     header:string;
     content_header: string;
+    summary: string;
     content: string;
+    color:string;
+    border_color:string;
+    border_color_2:string;
   }
   
   // Define the type for the entire form styles collection
@@ -17,8 +21,12 @@ interface FormStyle {
   // Define the styles
   const formStyles: FormStyles = {
     modern: {
-      container: "sm:p-[10px] lg:p-[96px] break-after-avoid",
+      container: "w-full p-6 sm:p-[10px] break-after-avoid",
       header:"text-base font-bold ",
+      summary:"",
+      border_color:"",
+      border_color_2:"",
+      color:"",
       list:"list-disc list-inside text-xs text-gray-700 mt-2 space-y-2  w-full",
       name:"text-xl font-bold text-center w-full",
       social:"text-sm mt-1 text-center w-full",

@@ -25,10 +25,10 @@ interface FormStyle {
   // Define the styles
   const cvFormStyles: FormStyles = {
     modern: {
-      container: "sm:p-4 lg:p-8 bg-white",
+      container: "w-a4-width h-a4-height bg-white",
       structure:"flex flex-row justify-between h-screen break-inside-avoid",
       color:"bg-orange-500",
-      section:"bg-orange-500 w-2/4 mr-1.5",
+      section:"bg-orange-500 w-2/4 h-a4-height mr-1.5",
       border_color:"border-orange-500",
       border_color_2:"border-black mx-4",
       name: "text-xl font-bold text-gray-800 text-center bg-orange-500",
@@ -43,7 +43,7 @@ interface FormStyle {
     },
   
     classic: {
-      container: "sm:p-4 lg:p-8 bg-white",
+      container: "w-a4-width h-a4-height bg-white",
       structure:"",
       border_color:" border-black",
       border_color_2:"border-black mx-4",

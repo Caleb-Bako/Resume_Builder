@@ -1,118 +1,89 @@
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState} from "react";
 import formStyles from "./Resume_Templates";
-import { useReactToPrint } from "react-to-print";
-import closeIcon from '../../assets/close-x-svgrepo-com.svg';
 import React from 'react';
-import PopUp from "../../components/Popup";
+import { toSvg } from "html-to-image";
 
-interface Template1Props {
-  setToggle: React.Dispatch<React.SetStateAction<number>>;
-  toggle: number,
-  name: string,
-  setName :React.Dispatch<React.SetStateAction<string>>
-  selectedStyle: string,
-  setSelectedStyle :React.Dispatch<React.SetStateAction<string>>
+interface WorkExperience {
+  company: string;
+  contents: string[];
+}
+interface SocialLink {
+  link: string;
+  image: string;
+}
+interface Education {
+  University: string;
+  degree: string;
 }
 
-function Template1({ setToggle, name, setName,selectedStyle,setSelectedStyle,toggle }: Template1Props) {
-  const [visible, setVisible] = useState(true);
-  const [workExperiences, setWorkExperiences] = useState<
-    { company: string; contents: string[] }[]
-  >([]);
-  const [skillInputs, setSkillInputs] = useState<string[]>([]);
+interface ResumeProps {
+  selectedStyle: string;
+  name: string;
+  summary: string;
+  education: Education[];
+  socialLinks: SocialLink[];
+  workExperiences: WorkExperience[];
+  skillInputs: string[];
+}
+
+function ResumeForm({ name,selectedStyle,summary,education,socialLinks,workExperiences,skillInputs}: ResumeProps) {
   const styles = formStyles[selectedStyle];
-
   const componentRef = useRef<HTMLFormElement>(null);
-
-  const addWorkExperience = () => {
-    setWorkExperiences([...workExperiences, { company: "", contents: [] }]);
-  };
-
-  const updateCompany = (index: number, value: string) => {
-    const updatedExperiences = [...workExperiences];
-    updatedExperiences[index].company = value;
-    setWorkExperiences(updatedExperiences);
-  };
-
-  const addContent = (index: number) => {
-    const updatedExperiences = [...workExperiences];
-    updatedExperiences[index].contents.push("");
-    setWorkExperiences(updatedExperiences);
-  };
-
-  const updateContent = (expIndex: number, contentIndex: number, value: string) => {
-    const updatedExperiences = [...workExperiences];
-    updatedExperiences[expIndex].contents[contentIndex] = value;
-    setWorkExperiences(updatedExperiences);
-  };
-
-  const addSkillInput = () => {
-    setSkillInputs([...skillInputs, ""]);
-  };
-
-  const updateSkill = (index: number, value: string) => {
-    const updatedSkills = [...skillInputs];
-    updatedSkills[index] = value;
-    setSkillInputs(updatedSkills);
-  };
+  const ref = useRef<HTMLDivElement>(null);
+  const [thumbnail, setThumbnail] = useState<string | null>(null);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    setVisible(false);
   
-    setTimeout(() => {
-      reactToPrintFn();
-    }, 100);
-  };
-  
-
-  const handleVisibleChange = () => {
-    setVisible(true);
+    // setTimeout(() => {
+    //   reactToPrintFn();
+    // }, 100);
   };
 
-  const reactToPrintFn = useReactToPrint({
-    contentRef: componentRef,
-    documentTitle: "AwesomeFileName",
-    onAfterPrint: handleVisibleChange,
-  });
+  console.log(selectedStyle)
+  
+  const generateThumbnail = useCallback(() => {
+    if (ref.current) {
+      // Generate PNG from the referenced HTML element
+      toSvg(ref.current, { cacheBust: true })
+        .then((dataUrl) => {
+          setThumbnail(dataUrl); // Set the thumbnail in state
+          console.log(thumbnail)
+        })
+        .catch((err) => {
+          console.error('Error generating thumbnail:', err);
+        });
+    }
+  }, []);
 
-  if (selectedStyle === '') return(
-    <PopUp selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} toggle={toggle}/>
-  )
 
+
+  useEffect(()=>{
+    generateThumbnail()
+  },[selectedStyle])
   return (
-    <div className="w-full bg-white mx-auto p-4 sm:p-6 md:p-8 lg:border lg:border-gray-300 overflow-y-auto break-inside-avoid">
+    <div className="bg-white overflow-y-auto min-h-screen w-full break-inside-avoid" ref={ref} >
       <form
         onSubmit={handleSubmit}
-        className={`${styles.container} flex flex-col break-inside-avoid`}
+        className={`${styles.container} flex flex-col break-inside-avoid w-full`}
         ref={componentRef}
       >
-        {visible &&(
-        <div className="flex justify-end">
-          <button onClick={() => setToggle(0)} type="button" className="print:hidden">
-            <img src={closeIcon} alt="Close" className="w-6 h-6" />
-          </button>
-        </div>)}
-        <header className="text-center my-4">
-          <input
-            type="text"
-            placeholder="Enter your name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className={`${styles.name} w-full`}
-          />
-          <input
-            type="text"
-            placeholder="Enter social handle"
-            className={`${styles.social} w-full`}
-          />
-          <input
-            type="email"
-            placeholder="Enter email"
-            className={`${styles.social} w-full`}
-          />
+        <header className="text-center my-4 w-full">
+          <div  className={`${styles.name} w-full`}>{name}</div>
+          <div className={`${styles.social} w-full`}>      
+            {socialLinks && socialLinks.map((social, socialIndex) => (
+            <div key={socialIndex} className="flex gap-1">
+              <div className={`${styles.social} w-full`}>{social.link}</div>
+          </div>
+          ))}
+          </div>
         </header>
-
+        <section className={styles.summary}>
+        <h2 className={`${styles.header} border-b-2 ${styles.border_color_2}`}>SUMMARY</h2>
+          <p className= {`text-xs w-full px-4 overflow-hidden resize-none ${styles.color}`}>
+            {summary}     
+          </p>
+        </section>
         <section>
           <h2 className={`${styles.header} border-b-2 border-indigo-500`}>
             Work Experience
@@ -120,58 +91,30 @@ function Template1({ setToggle, name, setName,selectedStyle,setSelectedStyle,tog
           {workExperiences.map((exp, expIndex) => (
             <div key={expIndex} className="my-2">
               <div className={`${styles.content_header}`}>
-                <input
-                  type="text"
-                  placeholder="e.g., Star Labs"
-                  value={exp.company}
-                  onChange={(e) => updateCompany(expIndex, e.target.value)}
-                  className="w-full"
-                />
-                {visible &&(
-                <button
-                  type="button"
-                  onClick={() => addContent(expIndex)}
-                  className="ml-2 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 print:hidden"
-                >
-                  +
-                </button>)}
+                <div className="w-full">
+                  {exp.company}
+                </div>
               </div>
               {exp.contents.map((content, contentIndex) => (
                 <ul key={contentIndex} className={styles.list}>
-                  <li>
-                    <input
-                      type="text"
-                      placeholder="e.g., Helped in keeping Central City Safe"
-                      value={content}
-                      onChange={(e) =>
-                        updateContent(expIndex, contentIndex, e.target.value)
-                      }
-                      className="w-11/12"
-                    />
+                  <li className="w-11/12">
+                    {content}
                   </li>
                 </ul>
               ))}
             </div>
           ))}
-          {visible &&(
-          <button
-            type="button"
-            onClick={addWorkExperience}
-            className="w-full px-2 py-1 mt-2 bg-blue-500 text-white rounded hover:bg-blue-600 print:hidden"
-          >
-            Add Work Experience
-          </button>)}
         </section>
         {/* Education Section */}
         <section className="my-6">
           <div className="border-b-2 border-indigo-500 ">
             <h2 className={styles.header}>Education</h2>
           </div>
-          <input
-            type="text"
-            placeholder="University Name"
-            className={styles.content_header}
-          />
+          {education.map((de,index)=>(
+                <div className={styles.content_header} key={index}>
+                  {de.University}
+                </div>
+            ))}
           <input
             type="text"
             placeholder="Degrees"
@@ -184,37 +127,25 @@ function Template1({ setToggle, name, setName,selectedStyle,setSelectedStyle,tog
           </h2>
           {skillInputs.map((input, index) => (
             <ul key={index} className={styles.list}>
-              <li>
-                <input
-                  key={index}
-                  type="text"
-                  placeholder="Things you are good at (e.g., JavaScript)"
-                  value={input}
-                  onChange={(e) => updateSkill(index, e.target.value)}
-                  className="w-11/12 my-1"
-                />
+              <li className="w-11/12 my-1">
+                {input}
             </li>
             </ul>
           ))}
-          {visible &&(
-          <button
-            type="button"
-            onClick={addSkillInput}
-            className="w-full px-2 py-1 mt-2 mb-2 bg-green-500 text-white rounded hover:bg-green-600 print:hidden"
-          >
-            Add Skill
-          </button>)}
         </section>
-        {visible &&(
-        <button
-        onClick={handleSubmit}
-        className="w-full px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 print:hidden"
-      >
-        Download
-      </button>)}
+        <button onClick={generateThumbnail}>Generate Thumbnail</button>
       </form>
+      {thumbnail && (
+        <div>
+          <h3>Generated Thumbnail:</h3>
+          <img
+          className="w-32 h-32 object-cover rounded-md border border-gray-300"
+          src={thumbnail} 
+          alt="Generated Thumbnail" />
+        </div>
+      )}
     </div>
   );
 }
 
-export default Template1;
+export default ResumeForm;

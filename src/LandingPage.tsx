@@ -1,14 +1,12 @@
 import { SetStateAction, useState } from 'react';
 import newspaperIcon from './assets/newspaper.png';
-import Template1 from './templates/Resume/Template1';
-import ModernDesign from './templates/CV/Elegant';
+import Resume_Form from './Forms/Resume_Form';
+import CV_Form from './Forms/CV_Form';
+
 
 function LandingPage(){
     const [toggle, setToggle] =useState<number>(0);
-    const[name,setName] = useState('')
-    const [selectedStyle,setSelectedStyle] = useState("");
     function updateToggle(id: SetStateAction<number>){
-      setSelectedStyle("")
       setToggle(id)
     }
 
@@ -119,10 +117,10 @@ function LandingPage(){
         </div>
         )}
         {toggle === 1 &&(
-          <ModernDesign setToggle={setToggle} toggle={toggle}  selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} />
+          <CV_Form closeForm={setToggle}/>
         )}
         {toggle === 2 &&(
-            <Template1 setToggle={setToggle} toggle={toggle} name={name} setName={setName} selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} /> 
+            <Resume_Form closeForm={setToggle}/>
         )}
         </>
       );
