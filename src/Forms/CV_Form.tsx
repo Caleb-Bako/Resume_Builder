@@ -73,7 +73,7 @@ function updateToggle(id: SetStateAction<number>){
   }
   
     return(
-        <div className="min-h-screen p-6 bg-gradient-to-r from-blue-500 to-green-500 font-sans relative print:hidden">
+        <div className="min-h-screen p-6 bg-gradient-to-r from-blue-500 to-green-500 font-sans relative ">
          {close === 0 &&(
         <form onSubmit={handleSubmit} className="p-6 bg-white rounded-lg shadow-lg h-fit">
             <button onClick={()=>closeForm(0)} className='absolute top-8 right-8'>
