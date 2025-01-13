@@ -64,7 +64,15 @@ function updateToggle(id: SetStateAction<number>){
 
   const reactToPrintFn = useReactToPrint({
     contentRef: componentref,
-    documentTitle: "AwesomeFileName",
+    onBeforePrint: async () => {
+        setClose(2); // Your synchronous logic
+        return; // Implicitly returns Promise<void>
+    },
+    documentTitle: "AwesomeFileName",   
+    onAfterPrint: async () => {
+        setClose(1); // Your synchronous logic
+        return; // Implicitly returns Promise<void>
+    }   
   });
 
   const refreshThumbnail = () => {
@@ -322,6 +330,9 @@ function updateToggle(id: SetStateAction<number>){
                 ))}
                 </div>
             </div>
+        )}
+        {close === 2 &&(
+            <h2>Helllllooooooo</h2>
         )}
         </div>
     )
