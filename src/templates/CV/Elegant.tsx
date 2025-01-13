@@ -41,9 +41,6 @@ const CVForm = forwardRef<HTMLDivElement, CVProps>(
     const styles = cvFormStyles[selectedStyle];
     const componentRef = useRef<HTMLDivElement>(null);
 
-
-
-
     return (
       <div className={styles.container} ref={ref}>
         <div ref={componentRef} className={styles.structure}>

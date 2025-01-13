@@ -1,7 +1,5 @@
-import { useCallback, useEffect, useRef, useState} from "react";
+import { forwardRef, useRef} from "react";
 import formStyles from "./Resume_Templates";
-import React from 'react';
-import { toSvg } from "html-to-image";
 
 interface WorkExperience {
   company: string;
@@ -14,6 +12,7 @@ interface SocialLink {
 interface Education {
   University: string;
   degree: string;
+  date:string
 }
 
 interface ResumeProps {
@@ -26,46 +25,27 @@ interface ResumeProps {
   skillInputs: string[];
 }
 
-function ResumeForm({ name,selectedStyle,summary,education,socialLinks,workExperiences,skillInputs}: ResumeProps) {
+const  ResumeForm = forwardRef<HTMLDivElement, ResumeProps>(
+  (
+    {
+      selectedStyle,
+      name,
+      summary,
+      education,
+      socialLinks,
+      workExperiences,
+      skillInputs,
+    },
+    ref 
+  ) => {
   const styles = formStyles[selectedStyle];
-  const componentRef = useRef<HTMLFormElement>(null);
-  const ref = useRef<HTMLDivElement>(null);
-  const [thumbnail, setThumbnail] = useState<string | null>(null);
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-  
-    // setTimeout(() => {
-    //   reactToPrintFn();
-    // }, 100);
-  };
-
-  console.log(selectedStyle)
-  
-  const generateThumbnail = useCallback(() => {
-    if (ref.current) {
-      // Generate PNG from the referenced HTML element
-      toSvg(ref.current, { cacheBust: true })
-        .then((dataUrl) => {
-          setThumbnail(dataUrl); // Set the thumbnail in state
-          console.log(thumbnail)
-        })
-        .catch((err) => {
-          console.error('Error generating thumbnail:', err);
-        });
-    }
-  }, []);
+  const componentRef = useRef<HTMLDivElement>(null);
 
 
-
-  useEffect(()=>{
-    generateThumbnail()
-  },[selectedStyle])
   return (
-    <div className="bg-white overflow-y-auto min-h-screen w-full break-inside-avoid" ref={ref} >
-      <form
-        onSubmit={handleSubmit}
-        className={`${styles.container} flex flex-col break-inside-avoid w-full`}
+    <div className={styles.container} ref={ref} >
+      <div
+        className={`flex flex-col break-inside-avoid w-full`}
         ref={componentRef}
       >
         <header className="text-center my-4 w-full">
@@ -111,15 +91,23 @@ function ResumeForm({ name,selectedStyle,summary,education,socialLinks,workExper
             <h2 className={styles.header}>Education</h2>
           </div>
           {education.map((de,index)=>(
-                <div className={styles.content_header} key={index}>
-                  {de.University}
+                <div key={index}>
+                  <div className={`flex ${styles.content_header}`}>
+                    <div>
+                      {de.University}
+                    </div>
+                    <div>
+                      {de.date}
+                    </div>
+                  </div>
+                  <div>
+                   
+                  </div>
+                  <div className={styles.content}>
+                    {de.degree}
+                  </div>
                 </div>
-            ))}
-          <input
-            type="text"
-            placeholder="Degrees"
-            className={styles.content}
-          />
+              ))}
         </section>
         <section className="my-4">
           <h2 className={`${styles.header} border-b-2 border-indigo-500`}>
@@ -133,19 +121,9 @@ function ResumeForm({ name,selectedStyle,summary,education,socialLinks,workExper
             </ul>
           ))}
         </section>
-        <button onClick={generateThumbnail}>Generate Thumbnail</button>
-      </form>
-      {thumbnail && (
-        <div>
-          <h3>Generated Thumbnail:</h3>
-          <img
-          className="w-32 h-32 object-cover rounded-md border border-gray-300"
-          src={thumbnail} 
-          alt="Generated Thumbnail" />
-        </div>
-      )}
+      </div>
     </div>
   );
-}
+})
 
 export default ResumeForm;

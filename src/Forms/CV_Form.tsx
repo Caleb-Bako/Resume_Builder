@@ -65,6 +65,11 @@ function updateToggle(id: SetStateAction<number>){
     contentRef: ref,
     documentTitle: "AwesomeFileName",
   });
+
+  const refreshThumbnail = () => {
+    setClose(0);
+    setThumbnails([]);
+  }
   
     return(
         <div className="min-h-screen p-6 bg-gradient-to-r from-blue-500 to-green-500 font-sans relative">
@@ -93,7 +98,7 @@ function updateToggle(id: SetStateAction<number>){
                 </button>
                 </div>
                 {socialLinks.map((social, index) => (
-                <div className='flex'>
+                <div className='flex' key={index}>
                     <input
                         placeholder="Input Social Handle"
                         className="w-full"
@@ -131,7 +136,7 @@ function updateToggle(id: SetStateAction<number>){
                     </button>
                 </div>
                 {workExperiences.map((exp, index) => (
-                <div className='flex flex-col'>
+                <div className='flex flex-col' key={index}>
                     <div className='flex'>
                     <input
                         placeholder="Input Social Handle"
@@ -251,7 +256,7 @@ function updateToggle(id: SetStateAction<number>){
                     </button>
                 </div>
             {skillInputs.map((input, index) => (
-                <div className='flex'>
+                <div className='flex' key={index}>
                     <input
                         placeholder="Input Social Handle"
                         className="w-full"
@@ -295,8 +300,8 @@ function updateToggle(id: SetStateAction<number>){
         )}
         {close === 1 &&(
             <div>
-            <button onClick={() => setClose(0)} type="button">
-               X
+            <button onClick={() => refreshThumbnail()} type="button">
+                <img src={closeIcon} className="w-6 h-6"/>
             </button>
             <div className='flex  items-center justify-center flex-wrap'>
                 {thumbnails.map((thumbnail,index)=>(

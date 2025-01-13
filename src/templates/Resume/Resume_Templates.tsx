@@ -21,7 +21,7 @@ interface FormStyle {
   // Define the styles
   const formStyles: FormStyles = {
     modern: {
-      container: "w-full p-6 sm:p-[10px] break-after-avoid",
+      container: "w-a4-width h-a4-height bg-white p-2",
       header:"text-base font-bold ",
       summary:"",
       border_color:"",

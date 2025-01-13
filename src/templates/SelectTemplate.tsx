@@ -41,9 +41,19 @@ interface TemplateProps {
     },
     ref
 ) {
-    const arrayLength = Object.keys(cvFormStyles).length;
+
+    const getArrayLength = () => {
+        if (formType === "CV") {
+          return Object.keys(cvFormStyles).length;
+        } else {
+          return Object.keys(formStyles).length; // Assuming this is the variable for resume styles
+        }
+      };
+
+    const arrayLength = getArrayLength()
 
     const handleNext = () => {
+        setToggle(0)
         if (toggle < arrayLength - 1) {
             setToggle(toggle + 1);
         }
@@ -69,18 +79,15 @@ interface TemplateProps {
     
 
     useEffect(() => {
-        console.log("useEffect triggered with toggle:", toggle);
         if (thumbnails.length < arrayLength) {
             const timeout = setTimeout(() => {
                 handleNext();
                 generateThumbnail();
             }, 1000);
-    
-            return () => clearTimeout(timeout); // Cleanup timeout to avoid overlap
+            return () => clearTimeout(timeout);
         }
     }, [toggle, thumbnails.length, arrayLength, generateThumbnail]);
     
-
     return (
         <div className={`fixed inset-0 -z-50 ${close === 1 ? "block" : "hidden"}`}>
             <div className="w-full">
@@ -114,6 +121,7 @@ interface TemplateProps {
                                     {index === toggle && (
                                         <div>
                                             <ResumeForm
+                                                ref={ref}
                                                 selectedStyle={temp}
                                                 name={name}
                                                 skillInputs={skillInputs}
