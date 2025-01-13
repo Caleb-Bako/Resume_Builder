@@ -8,7 +8,7 @@ import { useReactToPrint } from 'react-to-print';
 interface Toggle {closeForm:React.Dispatch<React.SetStateAction<number>>}
 export default function Resume_Form({closeForm}:Toggle){
 const [close, setClose] =useState<number>(0);
-const formType = "CV"
+const formType = "Resume"
 const ref = useRef<HTMLDivElement>(null);
 const componentref = useRef<HTMLDivElement>(null);
 const [thumbnails, setThumbnails] = useState<string[]>([]);
