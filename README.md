@@ -1,22 +1,46 @@
-#CVify: Interactive Resume/CV Builder 📄✨
-Project Description
-CVify is a powerful and intuitive mobile application designed to simplify the resume and CV creation process. Built with React Native, it provides users with an interactive platform to effortlessly build professional resumes. Users can select from various document types, dynamically fill out forms with their information, preview their document in real-time against different templates, and finally export a polished PDF for sharing or printing.
+# CVify 📝
 
-Key Features
-Dynamic Form Generation: Users can input their personal details, work experience, education, skills, and more through intuitive, dynamic forms. 📝
+An interactive and customizable **CV/Resume builder** built with **React**. CVify empowers users to select between document types (CV or Resume), dynamically fill out forms, preview real-time templates, and export clean, professional PDFs.
 
-Real-time Preview: See changes reflected instantly on selected templates as you fill out your information. 👀
+🚧 **Note**: This project is actively being refined. Expect design enhancements and additional template options soon!
 
-Multiple Document Types: Choose between different resume and CV layouts to best suit your needs. 🗂️
+---
 
-Customizable Templates: Select from a variety of pre-designed templates to give your resume a professional and unique look. 🎨
+## Features 🚀
 
-PDF Export: Generate high-quality, print-ready PDF versions of your resume/CV with a single tap. 📥
+- **Document Type Selection**:  
+  Users can choose between building a CV or a Resume based on their needs.
 
-User-Friendly Interface: A clean and responsive design ensures a smooth and enjoyable user experience. ✨
+- **Dynamic Form Filling**:  
+  Forms adapt in real-time to the document type and sections selected by the user.
 
-#Technologies Used
+- **Live Preview**:  
+  Instantly see what your document looks like with real-time template rendering.
 
-React: Core library for UI development.Like Literally just plain React nothing else really.
+- **Export as PDF**:  
+  Generate high-quality PDFs with styled formatting ready for print or digital submission.
 
+- **Responsive Design**:  
+  Fully functional on desktop and mobile devices.
+
+---
+
+## Tech Stack 💻
+
+- **Frontend**: React  
+- **Styling**: CSS Modules / Tailwind CSS  
+- **PDF Export**: html2pdf.js / jsPDF  
+
+---
+
+## Future Plans 🌟
+
+[] Add More Templates:  
+Offer different layout and color schemes for more personalization.
+
+[] User Authentication:  
+Allow users to save, edit, and manage multiple resumes.
+
+[] Drag-and-Drop Reordering:  
+Enable section reordering with a simple interface.
 
