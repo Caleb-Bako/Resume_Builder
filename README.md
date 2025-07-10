@@ -1,50 +1,22 @@
-# React + TypeScript + Vite
+#CVify: Interactive Resume/CV Builder 📄✨
+Project Description
+CVify is a powerful and intuitive mobile application designed to simplify the resume and CV creation process. Built with React Native, it provides users with an interactive platform to effortlessly build professional resumes. Users can select from various document types, dynamically fill out forms with their information, preview their document in real-time against different templates, and finally export a polished PDF for sharing or printing.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Key Features
+Dynamic Form Generation: Users can input their personal details, work experience, education, skills, and more through intuitive, dynamic forms. 📝
 
-Currently, two official plugins are available:
+Real-time Preview: See changes reflected instantly on selected templates as you fill out your information. 👀
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Multiple Document Types: Choose between different resume and CV layouts to best suit your needs. 🗂️
 
-## Expanding the ESLint configuration
+Customizable Templates: Select from a variety of pre-designed templates to give your resume a professional and unique look. 🎨
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+PDF Export: Generate high-quality, print-ready PDF versions of your resume/CV with a single tap. 📥
 
-- Configure the top-level `parserOptions` property like this:
+User-Friendly Interface: A clean and responsive design ensures a smooth and enjoyable user experience. ✨
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+#Technologies Used
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+React: Core library for UI development.Like Literally just plain React nothing else really.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
