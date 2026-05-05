@@ -122,7 +122,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 <div align="center">
 
-Built with ❤️ by **Caleb Bako**
+Built by **Caleb Bako**
 
 [![GitHub](https://img.shields.io/badge/github.com%2FCaleb--Bako-181717?style=flat-square&logo=github)](https://github.com/Caleb-Bako)
 [![LinkedIn](https://img.shields.io/badge/linkedin.com%2Fin%2Fcaleb--bako-0A66C2?style=flat-square&logo=linkedin)](https://linkedin.com/in/caleb-bako)
